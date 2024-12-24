@@ -22,7 +22,7 @@ public class CheckRouteAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
     
-    private static Set<String> ptRoutes = Set.of("bus", "train", "tram");
+    private static Set<String> ptRoutes = Set.of("bus", "trolleybus", "train", "tram");
 
     public CheckRouteAction() {
         super(I18n.tr("Check route"));
