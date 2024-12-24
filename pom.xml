@@ -9,7 +9,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <josm.version>19128</josm.version>
+    <josm.version>19265</josm.version>
     <commons-csv.version>1.10.0</commons-csv.version>
     <lombok.version>1.18.30</lombok.version>
     <jackson.version>2.15.4</jackson.version>
