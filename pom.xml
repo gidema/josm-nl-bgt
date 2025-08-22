@@ -2,17 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>josm-plugins</groupId>
-  <artifactId>netex</artifactId>
+  <artifactId>nl_bgt</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Josm-netex</name>
+  <name>Josm-nl-bgt</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <josm.version>19265</josm.version>
-    <commons-csv.version>1.10.0</commons-csv.version>
-    <lombok.version>1.18.30</lombok.version>
-    <jackson.version>2.15.4</jackson.version>
+    <josm.version>19277</josm.version>
+    <jts.version>1.18.2</jts.version>
+    <proj4j.version>0.1.0</proj4j.version>
   </properties>
   <build>
     <plugins>
@@ -34,35 +33,29 @@
       <version>${josm.version}</version>
     </dependency>
     <dependency>
-    	<groupId>org.apache.commons</groupId>
-    	<artifactId>commons-csv</artifactId>
-    	<version>${commons-csv.version}</version>
-    </dependency>
-    <dependency>  
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>6.1.4</version>
-      <scope>compile</scope>
+        <groupId>nl.pdok.ogc</groupId>
+        <artifactId>bgt_gson</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
+      <groupId>org.locationtech.jts</groupId>
+      <artifactId>jts-core</artifactId>
+      <version>${jts.version}</version>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>${jackson.version}</version>
+      <groupId>org.osgeo</groupId>
+      <artifactId>proj4j</artifactId>
+      <version>${proj4j.version}</version>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>${jackson.version}</version>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-csv </artifactId>
+      <version>2.19.2</version>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.version}</version>
+      <groupId>io.github.kazitanvirazad</groupId>
+      <artifactId>csv4pojo</artifactId>
+      <version>2.1.0</version>
     </dependency>
   </dependencies>
   <repositories>
@@ -72,13 +65,4 @@
       <url>https://josm.openstreetmap.de/nexus/content/repositories/releases/</url>
     </repository>
   </repositories>
-<!--  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>org.apache.commons</groupId>
-  			<artifactId>commons-csv</artifactId>
-  			<version>${commons-csv.version}</version>
-  		</dependency>
-  	</dependencies>
-  </dependencyManagement>-->
 </project>

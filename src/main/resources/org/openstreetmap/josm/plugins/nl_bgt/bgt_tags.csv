@@ -1,0 +1,98 @@
+feature,functie,fysiekVoorkomen,key,value
+onbegroeidterreindeel,,gesloten verharding-asfalt,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (gesloten verharding-asfalt)
+ondersteunendwegdeel,verkeerseiland,open verharding-beton element,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding-beton element,landuse,highway
+wegdeel,fietspad,,area:highway,cycleway
+wegdeel,fietspad,,landuse,highway
+wegdeel,fietspad,,bridge,yes
+ondersteunendwegdeel,verkeerseiland,open verharding-gebakken klinkers,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding-gebakken klinkers,landuse,highway
+onbegroeidterreindeel,,open verharding-gebakken klinkers,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-gebakken klinkers)
+begroeidterreindeel,,groenvoorziening-struikrozen,landuse,flowerbed
+onbegroeidterreindeel,,onverhard,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (onverhard-)
+begroeidterreindeel,,groenvoorziening-gras- en kruidachtigen,landcover,grass
+begroeidterreindeel,,groenvoorziening-gras- en kruidachtigen,landuse,grass
+waterdeel,"greppel, droge sloot",,natural,water
+waterdeel,"greppel, droge sloot",,intermittent,yes
+waterdeel,"greppel, droge sloot",,water,ditch
+wegdeel,voetpad,,area:highway,footway
+wegdeel,voetpad,,landuse,highway
+begroeidterreindeel,,groenvoorziening-planten,landuse,flowerbed
+wegdeel,voetpad op trap,,area:highway,steps
+wegdeel,voetpad op trap,,landuse,highway
+onbegroeidterreindeel,,zand,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (zand-)
+onbegroeidterreindeel,,zand,landcover,sand
+wegdeel,rijbaan lokale weg,,area:highway,residential
+wegdeel,rijbaan lokale weg,,landuse,highway
+wegdeel,voetgangersgebied,,area:highway,pedestrian
+wegdeel,voetgangersgebied,,landuse,highway
+ondersteunendwegdeel,verkeerseiland,gesloten verharding-asfalt,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,gesloten verharding-asfalt,landuse,highway
+ondersteunendwegdeel,verkeerseiland,gesloten verharding-cementbeton,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,gesloten verharding-cementbeton,landuse,highway
+onbegroeidterreindeel,,zand-zandverstuiving,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (zand-zandverstuiving)
+onbegroeidterreindeel,,zand-zandverstuiving,landcover,sand
+onbegroeidterreindeel,,gesloten verharding-cementbeton,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (gesloten verharding-cementbeton)
+begroeidterreindeel,,groenvoorziening,natural,shrubbery
+onbegroeidterreindeel,,half verhard-grasklinkers,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (half verhard-grasklinkers)
+ondersteunendwegdeel,berm,groenvoorziening,area:highway,verge
+ondersteunendwegdeel,berm,groenvoorziening,landuse,highway
+onbegroeidterreindeel,,open verharding-tegels,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-tegels)
+ondersteunendwaterdeel,,"oever, slootkant",landuse,grass
+ondersteunendwaterdeel,,"oever, slootkant",slope,yes
+onbegroeidterreindeel,,onverhard-zand,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (onverhard-zand)
+onbegroeidterreindeel,,onverhard-zand,landcover,sand
+waterdeel,waterloop,,natural,water
+begroeidterreindeel,,groenvoorziening-bosplantsoen,landcover,trees
+begroeidterreindeel,,grasland overig,landcover,grass
+begroeidterreindeel,,grasland overig,landuse,grass
+ondersteunendwegdeel,verkeerseiland,open verharding,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding,landuse,highway
+onbegroeidterreindeel,,half verhard,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (half verhard-)
+ondersteunendwegdeel,berm,gesloten verharding,area:highway,verge
+ondersteunendwegdeel,berm,gesloten verharding,landuse,highway
+ondersteunendwegdeel,verkeerseiland,half verhard-grasklinkers,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,half verhard-grasklinkers,landuse,highway
+ondersteunendwegdeel,verkeerseiland,open verharding-sierbestrating,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding-sierbestrating,landuse,highway
+onbegroeidterreindeel,,erf,landuse,residential
+waterdeel,"watervlakte-meer, plas, ven, vijver",,natural,water
+onbegroeidterreindeel,,half verhard-gravel,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (half verhard-gravel)
+onbegroeidterreindeel,,open verharding-betonstraatstenen,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-betonstraatstenen)
+onbegroeidterreindeel,,open verharding-sierbestrating,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-sierbestrating)
+begroeidterreindeel,,groenvoorziening-heesters,natural,shrubbery
+ondersteunendwegdeel,verkeerseiland,groenvoorziening,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,groenvoorziening,landuse,highway
+ondersteunendwegdeel,verkeerseiland,open verharding-betonstraatstenen,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding-betonstraatstenen,landuse,highway
+onbegroeidterreindeel,,gesloten verharding-kunststof,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (gesloten verharding-kunststof)
+begroeidterreindeel,,groenvoorziening-bodembedekkers,natural,shrubbery
+onbegroeidterreindeel,,gesloten verharding,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (gesloten verharding-)
+onbegroeidterreindeel,,open verharding,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-)
+wegdeel,rijbaan regionale weg-verkeersdrempel,,area:highway,residential
+wegdeel,rijbaan regionale weg-verkeersdrempel,,bgt_attention,rijbaan regionale weg VS residential
+wegdeel,rijbaan regionale weg-verkeersdrempel,,landuse,highway
+onbegroeidterreindeel,,onverhard-boomschors,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (onverhard-boomschors)
+wegdeel,OV-baan,,area:highway,busway
+wegdeel,OV-baan,,landuse,highway
+ondersteunendwegdeel,verkeerseiland,gesloten verharding,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,gesloten verharding,landuse,highway
+wegdeel,rijbaan lokale weg-verkeersdrempel,,area:highway,residential
+wegdeel,rijbaan lokale weg-verkeersdrempel,,landuse,highway
+onbegroeidterreindeel,,half verhard-grind,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (half verhard-grind)
+ondersteunendwegdeel,verkeerseiland,open verharding-tegels,area:highway,traffic_island
+ondersteunendwegdeel,verkeerseiland,open verharding-tegels,landuse,highway
+onbegroeidterreindeel,,open verharding-beton element,bgt_attention,wat is dit? BGT_onbegroeid terreindeel? (open verharding-beton element)
+begroeidterreindeel,,struiken,natural,scrub
+waterdeel,watervlakte,,natural,water
+wegdeel,overweg,,area:highway,unclassified
+wegdeel,overweg,,landuse,highway
+wegdeel,inrit,,area:highway,driveway
+wegdeel,inrit,,landuse,highway
+wegdeel,parkeervlak,,parking,street_side
+wegdeel,parkeervlak,,area:highway,service
+wegdeel,parkeervlak,,amenity,parking
+wegdeel,parkeervlak,,landuse,highway
+wegdeel,spoorbaan,,area:highway,unclassified
+wegdeel,spoorbaan,,landuse,highway
+wegdeel,spoorbaan,,bridge,yes
