@@ -20,7 +20,9 @@ public class WegdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONW
         try {
             var features = client.getWegdeel(bbox);
             features.getFeatures().forEach(feature -> {
-                addToOsm(feature);
+                if (getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
+                    addToOsm(feature);
+                }
             });
             MainApplication.getMainPanel().repaint();
         } catch (ApiException e) {

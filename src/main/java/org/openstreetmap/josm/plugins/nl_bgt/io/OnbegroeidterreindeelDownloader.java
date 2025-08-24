@@ -20,7 +20,9 @@ public class OnbegroeidterreindeelDownloader extends AbstractFeatureDownloader<F
         try {
             var features = client.getOnbegroeidterreindeel(bbox);
             features.getFeatures().forEach(feature -> {
-                addToOsm(feature);
+                if (getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
+                    addToOsm(feature);
+                }
             });
             MainApplication.getMainPanel().repaint();
         } catch (ApiException e) {

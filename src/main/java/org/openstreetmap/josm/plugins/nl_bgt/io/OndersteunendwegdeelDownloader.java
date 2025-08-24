@@ -20,7 +20,9 @@ public class OndersteunendwegdeelDownloader extends AbstractFeatureDownloader<Fe
         try {
             var features = client.getOndersteunendwegdeel(bbox);
             features.getFeatures().forEach(feature -> {
-                addToOsm(feature);
+                if (getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
+                    addToOsm(feature);
+                }
             });
             MainApplication.getMainPanel().repaint();
         } catch (ApiException e) {

@@ -1,5 +1,7 @@
 package org.openstreetmap.josm.plugins.nl_bgt.io;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.FutureTask;
 
 import org.openstreetmap.josm.data.osm.DataSet;
@@ -14,7 +16,7 @@ public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<
     private DataSet dataSet; 
     private Boundary boundary;
     private final FeatureTagBuilder tagBuilder; 
-
+    private final Set<String> featureIdCache = new HashSet<>();
 
     public AbstractFeatureDownloader(Class<T> clazz) {
         super();
@@ -28,6 +30,10 @@ public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<
 
     public FeatureTagBuilder getTagBuilder() {
         return tagBuilder;
+    }
+
+    public Set<String> getFeatureIdCache() {
+        return featureIdCache;
     }
 
     @SuppressWarnings("hiding")
