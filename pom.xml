@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>josm-plugins</groupId>
   <artifactId>nl_bgt</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>Josm-nl-bgt</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,10 +20,30 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
         <configuration>
+          <release>17</release>
+          <parameters>true</parameters>
           <source>17</source>
           <target>17</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.2</version>
+<!--        <configuration>
+          <archive>
+            <manifestEntries>
+              <Author>Gertjan Idema &lt;mail@gertjanidema.nl&gt;"</Author>
+              <Plugin-Class>${plugin.class}</Plugin-Class>
+              <Plugin-Date>${plugin.date}</Plugin-Date>
+              <Plugin-Description>The NL BGT plug-in provides support to import dutch infrastructure data from the BGT data set.</Plugin-Description>
+              <Plugin-Mainversion>${plugin.main.version}</Plugin-Mainversion>
+              <Plugin-Version>${plugin.version}</Plugin-Version>
+              <Plugin-Stage>40</Plugin-Stage>
+            </manifestEntries>
+          </archive>
+        </configuration>
+-->      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -46,11 +66,6 @@
       <groupId>org.osgeo</groupId>
       <artifactId>proj4j</artifactId>
       <version>${proj4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.dataformat</groupId>
-      <artifactId>jackson-dataformat-csv </artifactId>
-      <version>2.19.2</version>
     </dependency>
     <dependency>
       <groupId>io.github.kazitanvirazad</groupId>

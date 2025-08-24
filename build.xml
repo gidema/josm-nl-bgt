@@ -62,8 +62,17 @@
       <mkdir dir="${plugin.build.dir}"/>
       <mkdir dir="${plugin.debug.build.dir}"/>
       <artifact:dependencies filesetId="dependency.fileset">
-        <dependency groupId="commons-lang" artifactId="commons-lang" version="2.6"/>
-        <dependency groupId="org.osgeo" artifactId="proj4j" version="0.1.0"/>
+        <dependency groupId="nl.pdok.ogc" artifactId="bgt_gson" version="1.0.0-SNAPSHOT"/>
+        <dependency groupId="io.github.kazitanvirazad" artifactId="csv4pojo" version="2.1.0"/>
+        <dependency groupId="com.squareup.okhttp3" artifactId="okhttp" version="4.12.0"/>
+        <dependency groupId="com.squareup.okio" artifactId="okio" version="3.6.0"/>
+        <dependency groupId="com.squareup.okio" artifactId="okio-jvm" version="3.6.0"/>
+        <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk7" version="1.8.21"/>
+        <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8" version="1.8.21"/>
+        <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib" version="1.8.21"/>
+        <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-common" version="1.9.10"/>
+        <dependency groupId="io.gsonfire" artifactId="gson-fire" version="1.9.0"/>
+        <dependency groupId="com.google.code.gson" artifactId="gson" version="2.10.1"/>
       </artifact:dependencies>
     </target>
 
@@ -78,11 +87,20 @@
       <fileset dir="${maven.target.dir}/classes" />
     </copy>
     <unjar dest="${plugin.build.dir}">
-      <fileset file="${commons-lang:commons-lang:jar}" />
-      <fileset file="${org.osgeo:proj4j:jar}" />
-        <patternset>
-            <exclude name="META-INF/ECLIPSEF.*"/>
-        </patternset>
+      <fileset file="${nl.pdok.ogc:bgt_gson:jar}" />
+      <fileset file="${io.github.kazitanvirazad:csv4pojo:jar}"/>
+      <fileset file="${com.squareup.okhttp3:okhttp:jar}"/>
+      <fileset file="${com.squareup.okio:okio:jar}"/>
+      <fileset file="${com.squareup.okio:okio-jvm:jar}"/>
+      <fileset file="${org.jetbrains.kotlin:kotlin-stdlib-jdk7:jar}"/>
+      <fileset file="${org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar}"/>
+      <fileset file="${org.jetbrains.kotlin:kotlin-stdlib:jar}"/>
+      <fileset file="${org.jetbrains.kotlin:kotlin-stdlib-common:jar}"/>
+      <fileset file="${io.gsonfire:gson-fire:jar}"/>
+      <fileset file="${com.google.code.gson:gson:jar}"/>
+      <patternset>
+        <exclude name="META-INF/ECLIPSEF.*"/>
+      </patternset>
     </unjar>
     <jar destfile="${plugin.jar}" basedir="${plugin.build.dir}">
       <!--
@@ -102,6 +120,7 @@
         <attribute name="Plugin-Mainversion" value="${plugin.main.version}" />
         <attribute name="Plugin-Version" value="${plugin.version}" />
         <attribute name="Plugin-Stage" value="40" />
+        <attribute name="Plugin-Requires" value="jts"/>
       </manifest>
     </jar>
   </target>
