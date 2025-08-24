@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>josm-plugins</groupId>
   <artifactId>nl_bgt</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1-SNAPSHOT</version>
   <name>Josm-nl-bgt</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
