@@ -1,6 +1,5 @@
 package org.openstreetmap.josm.plugins.nl_bgt.features;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,12 +41,11 @@ public class FeatureTagBuilderCache {
                     var clazz = Class.forName(className);
                     cache.put(clazz, builder);
                 } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Logging.warn(e);
                 }
             });
-        } catch (Exception e) {
-            Logging.warn(e);
+        } catch (Throwable t) {
+            Logging.warn(t);
         }
     }
     
