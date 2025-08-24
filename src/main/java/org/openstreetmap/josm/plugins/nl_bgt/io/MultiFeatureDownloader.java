@@ -10,6 +10,7 @@ import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.layer.MainLayerManager;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
 import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
+import org.openstreetmap.josm.tools.Logging;
 
 // TODO decide upon and document Class lifecycle
 public class MultiFeatureDownloader {
@@ -29,11 +30,18 @@ public class MultiFeatureDownloader {
 
     public void run(Boundary boundary) {
         final List<FutureTask<TaskStatus>> fetchTasks = new LinkedList<>();
+        Logging.info("Downloading {0} sets of BGT data with boundary {1}", downloaders.size(), boundary);
         OsmDataLayer dataLayer = getOsmDataLayer();
         downloaders.forEach(featureDownloader -> {
             fetchTasks.add(featureDownloader.getFetchTask(boundary, dataLayer.getDataSet()));
         });
-        var TaskStatus = TaskRunner.runTasks(fetchTasks);
+        var taskStatus = TaskRunner.runTasks(fetchTasks);
+        if (taskStatus.hasExceptions()) {
+            Logging.error(taskStatus.getExceptions().toString());
+        }
+        if (taskStatus.hasErrors()) {
+            Logging.error(taskStatus.getErrors().toString());
+        }
         layerManager.setActiveLayer(dataLayer);
     }
     
