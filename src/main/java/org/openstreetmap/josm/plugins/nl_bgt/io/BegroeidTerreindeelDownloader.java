@@ -19,7 +19,8 @@ public class BegroeidTerreindeelDownloader extends AbstractFeatureDownloader<Fea
         try {
             var features = client.getBegroeidterreindeel(bbox);
             features.getFeatures().forEach(feature -> {
-                if (getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
+                if (feature.getProperties().getEindRegistratie() == null &&
+                        getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
                     addToOsm(feature);
                 }
             });
@@ -32,8 +33,6 @@ public class BegroeidTerreindeelDownloader extends AbstractFeatureDownloader<Fea
 
     @Override
     public void addToOsm(FeatureGeoJSONBegroeidterreindeel feature) {
-        // TODO filter obsolete features with the feature request. Not here. 
-        if (feature.getProperties().getEindRegistratie() != null) return;
         var geometry = feature.getGeometry().getActualInstance();
         var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
         osmPrimitive.put("source", "NL:BGT");

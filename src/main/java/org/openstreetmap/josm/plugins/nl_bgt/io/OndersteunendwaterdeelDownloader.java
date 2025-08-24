@@ -20,7 +20,8 @@ public class OndersteunendwaterdeelDownloader extends AbstractFeatureDownloader<
         try {
             var features = client.getOndersteunendwaterdeel(bbox);
             features.getFeatures().forEach(feature -> {
-                if (getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
+                if (feature.getProperties().getEindRegistratie() == null &&
+                        getFeatureIdCache().add(feature.getProperties().getLokaalId())) {
                     addToOsm(feature);
                 }
             });
@@ -33,8 +34,6 @@ public class OndersteunendwaterdeelDownloader extends AbstractFeatureDownloader<
 
     @Override
     public void addToOsm(FeatureGeoJSONOndersteunendwaterdeel feature) {
-        // TODO filter obsolete features with the feature request. Not here. 
-        if (feature.getProperties().getEindRegistratie() != null) return;
         var geometry = feature.getGeometry().getActualInstance();
         var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
         osmPrimitive.put("source", "NL:BGT");
