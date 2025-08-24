@@ -110,4 +110,11 @@ public class Boundary {
                 BigDecimal.valueOf(getEnvelope().getMaxX()),
                 BigDecimal.valueOf(getEnvelope().getMaxY()));
     }
+
+    @Override
+    public String toString() {
+        return getEnvelope().toString();
+    }
+    
+    
 }
