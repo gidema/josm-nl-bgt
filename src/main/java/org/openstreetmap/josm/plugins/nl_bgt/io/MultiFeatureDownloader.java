@@ -8,6 +8,8 @@ import java.util.concurrent.FutureTask;
 
 import org.openstreetmap.josm.data.Bounds;
 import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.data.osm.DownloadPolicy;
+import org.openstreetmap.josm.data.osm.UploadPolicy;
 import org.openstreetmap.josm.data.osm.visitor.BoundingXYVisitor;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.layer.MainLayerManager;
@@ -61,6 +63,8 @@ public class MultiFeatureDownloader {
                 return dataLayer;
             });
         osmLayer.setUploadDiscouraged(true);
+        osmLayer.getDataSet().setUploadPolicy(UploadPolicy.BLOCKED);
+        osmLayer.getDataSet().setDownloadPolicy(DownloadPolicy.BLOCKED);
         return osmLayer;
     }
     
