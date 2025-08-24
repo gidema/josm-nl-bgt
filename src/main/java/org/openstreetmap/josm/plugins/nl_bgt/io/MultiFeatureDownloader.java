@@ -50,7 +50,7 @@ public class MultiFeatureDownloader {
     }
     
     private static OsmDataLayer getOsmDataLayer() {
-        return layerManager.getLayers().stream()
+        OsmDataLayer osmLayer = layerManager.getLayers().stream()
             .filter(layer -> layer.getName().equals(layerName)) 
             .filter(layer -> layer instanceof OsmDataLayer)
             .map(OsmDataLayer.class::cast)
@@ -60,6 +60,8 @@ public class MultiFeatureDownloader {
                 layerManager.addLayer(dataLayer);
                 return dataLayer;
             });
+        osmLayer.setUploadDiscouraged(true);
+        return osmLayer;
     }
     
     public void cancel() {
