@@ -120,7 +120,7 @@
         <attribute name="Plugin-Mainversion" value="${plugin.main.version}" />
         <attribute name="Plugin-Version" value="${plugin.version}" />
         <attribute name="Plugin-Stage" value="40" />
-        <attribute name="Plugin-Requires" value="jts"/>
+        <attribute name="Plugin-Requires" value="utilsplugin2;jts"/>
       </manifest>
     </jar>
   </target>
