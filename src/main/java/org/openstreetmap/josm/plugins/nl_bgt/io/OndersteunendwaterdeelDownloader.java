@@ -3,6 +3,7 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
 import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
+import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
 import nl.pdok.ogc.bgt.model.FeatureGeoJSONOndersteunendwaterdeel;
@@ -38,7 +39,9 @@ public class OndersteunendwaterdeelDownloader extends AbstractFeatureDownloader<
         var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
-        var functie = feature.getType().getValue();
-        getTagBuilder().buildTags(osmPrimitive, functie, null);
+        var type = feature.getProperties().getType();
+        var plusType = feature.getProperties().getPlusType();
+        var featureTags = new BgtFeatureTags(type, plusType, null, null, null);
+        getTagBuilder().buildTags(osmPrimitive, featureTags);
     }
 }

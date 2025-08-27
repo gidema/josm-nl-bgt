@@ -3,6 +3,7 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
 import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
+import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
 import nl.pdok.ogc.bgt.model.FeatureGeoJSONOndersteunendwegdeel;
@@ -40,6 +41,7 @@ public class OndersteunendwegdeelDownloader extends AbstractFeatureDownloader<Fe
         osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
         var functie = feature.getProperties().getFunctie();
         var fysiekVoorkomen = feature.getProperties().getFysiekVoorkomen();
-        getTagBuilder().buildTags(osmPrimitive, functie, fysiekVoorkomen);
+        var plusFysiekVoorkomen = feature.getProperties().getPlusFysiekVoorkomen();
+        getTagBuilder().buildTags(osmPrimitive, new BgtFeatureTags(null, null, functie, fysiekVoorkomen, plusFysiekVoorkomen));
     }
 }

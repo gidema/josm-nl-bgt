@@ -1,7 +1,6 @@
 package org.openstreetmap.josm.plugins.nl_bgt.features;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +28,11 @@ public class FeatureTagBuilderCache {
             });
             // Create a FeatureTagBuilder per feature
             perFeatureMap.forEach((feature, dtoList) -> {
-                Map<List<String>, Map<String, String>> map = new HashMap<>();
+                Map<BgtFeatureTags, Map<String, String>> map = new HashMap<>();
                 dtoList.forEach(dto -> {
-                    var selector = Arrays.asList(new String[] {dto.getFunctie(), dto.getFysiekVoorkomen()});
-                    var tagMap = map.computeIfAbsent(selector, s -> new HashMap<>());
+                    var featureTags = new BgtFeatureTags(dto.getType(), dto.getPlusType(), dto.getFunctie(),
+                            dto.getFysiekVoorkomen(), dto.getPlusFysiekVoorkomen());
+                    var tagMap = map.computeIfAbsent(featureTags, s -> new HashMap<>());
                     tagMap.put(dto.getKey(), dto.getValue());
                 });
                 var builder = new FeatureTagBuilder(feature, map);

@@ -3,6 +3,7 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
 import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
+import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
 import nl.pdok.ogc.bgt.model.FeatureGeoJSONBegroeidterreindeel;
@@ -38,6 +39,7 @@ public class BegroeidTerreindeelDownloader extends AbstractFeatureDownloader<Fea
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
         var fysiekVoorkomen = feature.getProperties().getFysiekVoorkomen();
-        getTagBuilder().buildTags(osmPrimitive, null, fysiekVoorkomen);
+        var plusFysiekVoorkomen = feature.getProperties().getPlusFysiekVoorkomen();
+        getTagBuilder().buildTags(osmPrimitive, new BgtFeatureTags(null, null, null, fysiekVoorkomen, plusFysiekVoorkomen));
     }
 }

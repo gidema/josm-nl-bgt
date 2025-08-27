@@ -1,6 +1,7 @@
 package org.openstreetmap.josm.plugins.nl_bgt.data;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +87,9 @@ public class PrimitiveFactory {
     }
     
     private static Node createNode(List<BigDecimal> coords, DataSet dataSet) {
-        var latLon = new LatLon(coords.get(1).doubleValue(), coords.get(0).doubleValue());
+        BigDecimal b;
+        var latLon = new LatLon(coords.get(1).setScale(7, RoundingMode.HALF_UP).doubleValue(),
+                coords.get(0).setScale(7, RoundingMode.HALF_UP).doubleValue());
         var node = nodeCache.get(latLon);
         if (node == null) {
             node = new Node(latLon);
