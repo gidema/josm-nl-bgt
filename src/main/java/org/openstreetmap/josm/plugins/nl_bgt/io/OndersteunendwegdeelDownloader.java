@@ -36,9 +36,9 @@ public class OndersteunendwegdeelDownloader extends AbstractFeatureDownloader<Fe
     @Override
     public void addToOsm(FeatureGeoJSONOndersteunendwegdeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
+        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
         osmPrimitive.put("source", "NL:BGT");
-        osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
+        osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var functie = feature.getProperties().getFunctie();
         var fysiekVoorkomen = feature.getProperties().getFysiekVoorkomen();
         var plusFysiekVoorkomen = feature.getProperties().getPlusFysiekVoorkomen();

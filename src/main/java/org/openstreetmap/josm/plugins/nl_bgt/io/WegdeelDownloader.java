@@ -37,9 +37,9 @@ public class WegdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONW
     @Override
     public void addToOsm(FeatureGeoJSONWegdeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
+        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
         osmPrimitive.put("source", "NL:BGT");
-        osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
+        osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var functie = feature.getProperties().getFunctie();
         getTagBuilder().buildTags(osmPrimitive, new BgtFeatureTags(null, null, functie, null, null));
     }

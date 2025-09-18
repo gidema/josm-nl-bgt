@@ -36,9 +36,9 @@ public class OnbegroeidterreindeelDownloader extends AbstractFeatureDownloader<F
     @Override
     public void addToOsm(FeatureGeoJSONOnbegroeidterreindeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet());
+        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
         osmPrimitive.put("source", "NL:BGT");
-        osmPrimitive.put("ref:NL_BGT", feature.getProperties().getLokaalId());
+        osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var fysiekVoorkomen = feature.getProperties().getFysiekVoorkomen();
         var plusFysiekVoorkomen = feature.getProperties().getPlusFysiekVoorkomen();
         getTagBuilder().buildTags(osmPrimitive, new BgtFeatureTags(null, null, null, fysiekVoorkomen, plusFysiekVoorkomen));
