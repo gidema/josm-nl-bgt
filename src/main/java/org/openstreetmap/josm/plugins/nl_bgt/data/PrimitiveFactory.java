@@ -22,20 +22,20 @@ import nl.pdok.ogc.bgt.model.PolygonGeoJSON;
 public class PrimitiveFactory {
     private static Map<LatLon, Node> nodeCache = new HashMap<>();
     
-    public static OsmPrimitive createPrimitive(Object geometry, DataSet dataSet) {
+    public static OsmPrimitive createPrimitive(Object geometry, DataSet dataSet, boolean keepHoles) {
         OsmPrimitive mainPrimitive = null;
         if (geometry instanceof PolygonGeoJSON) {
             var coordinates = ((PolygonGeoJSON)geometry).getCoordinates();
             if (coordinates.size() > 1) {
-                mainPrimitive = createComplexPolygon(coordinates, dataSet);
+                mainPrimitive = createArea(coordinates, dataSet, keepHoles);
             }
             else {
-                mainPrimitive = createSimplePolygon(coordinates.get(0), dataSet);
+                mainPrimitive = createArea(coordinates.get(0), dataSet);
             }
         }
         else if (geometry instanceof MultipolygonGeoJSON) {
             var coordinates = ((MultipolygonGeoJSON)geometry).getCoordinates();
-            mainPrimitive = createMultiPolygon(coordinates, dataSet);
+            mainPrimitive = createMultiPolygonArea(coordinates, dataSet, keepHoles);
         }
         if (mainPrimitive != null) {
             if (mainPrimitive.getType().equals(OsmPrimitiveType.RELATION)) {
@@ -45,33 +45,37 @@ public class PrimitiveFactory {
         return mainPrimitive;
     }
 
-    private static OsmPrimitive createMultiPolygon(List<List<List<List<BigDecimal>>>> coordinates, DataSet dataSet) {
+    private static OsmPrimitive createMultiPolygonArea(List<List<List<List<BigDecimal>>>> coordinates, DataSet dataSet, boolean keepHoles) {
         var relation = new Relation();
         relation.put("type", "multipolygon");
         coordinates.forEach(polygonCoords -> {
-            addPolygon(relation, polygonCoords, dataSet);
+            addPolygon(relation, polygonCoords, dataSet, keepHoles);
         });
         return relation;
     }
 
-    private static OsmPrimitive createComplexPolygon(List<List<List<BigDecimal>>> coordinates, DataSet dataSet) {
-        var relation = new Relation();
-        relation.put("type", "multipolygon");
-        addPolygon(relation, coordinates, dataSet);
-        return relation;
+    private static OsmPrimitive createArea(List<List<List<BigDecimal>>> coordinates, DataSet dataSet, boolean keepHoles) {
+        if (keepHoles) {
+            var relation = new Relation();
+            relation.put("type", "multipolygon");
+            addPolygon(relation, coordinates, dataSet, keepHoles);
+            return relation;
+        }
+        return createArea(coordinates.get(0), dataSet);
     }
 
-    private static void addPolygon(Relation relation, List<List<List<BigDecimal>>> coordinates, DataSet dataSet) {
+    private static void addPolygon(Relation relation, List<List<List<BigDecimal>>> coordinates, DataSet dataSet, boolean keepHoles) {
         var it = coordinates.iterator();
         var outerRing = new RelationMember("outer", createLinearRing(it.next(), dataSet));
         relation.addMember(outerRing);
+        if (keepHoles)
         while (it.hasNext()) {
             var innerRing = new RelationMember("inner", createLinearRing(it.next(), dataSet));
             relation.addMember(innerRing);
         }
     }
 
-    private static OsmPrimitive createSimplePolygon(List<List<BigDecimal>> coordinates, DataSet dataSet) {
+    private static OsmPrimitive createArea(List<List<BigDecimal>> coordinates, DataSet dataSet) {
         return createLinearRing(coordinates, dataSet);
     }
     
