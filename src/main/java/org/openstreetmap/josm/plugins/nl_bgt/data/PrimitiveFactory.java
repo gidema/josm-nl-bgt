@@ -81,9 +81,14 @@ public class PrimitiveFactory {
     
     private static Way createLinearRing(List<List<BigDecimal>> coordinates, DataSet dataSet) {
         List<Node> nodes = new ArrayList<>(coordinates.size());
-        coordinates.forEach(coord -> {
-            nodes.add(createNode(coord, dataSet));
-        });
+        Node previousNode= null;
+        for (List<BigDecimal> coord : coordinates) {
+            var node = createNode(coord, dataSet);
+            if (!node.equals(previousNode)) {
+                nodes.add(createNode(coord, dataSet));
+            }
+            previousNode = node;
+        }
         var way = new Way();
         way.setNodes(nodes);
         dataSet.addPrimitive(way);
