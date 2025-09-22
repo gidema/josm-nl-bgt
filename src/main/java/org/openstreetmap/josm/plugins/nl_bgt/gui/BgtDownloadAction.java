@@ -10,8 +10,9 @@ import javax.swing.AbstractAction;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.PleaseWaitRunnable;
 import org.openstreetmap.josm.io.OsmTransferException;
-import org.openstreetmap.josm.plugins.nl_bgt.io.MultiFeatureDownloader;
-import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
+import org.openstreetmap.josm.plugins.nl_bgt.io.BgtMultiFeatureDownloader;
+import org.openstreetmap.josm.shared.nl_ogc.gui.SlippyMapDownloadDialog;
+import org.openstreetmap.josm.shared.nl_ogc.jts.Boundary;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.xml.sax.SAXException;
 
@@ -25,7 +26,7 @@ public class BgtDownloadAction extends AbstractAction {
     private Boundary boundary;
     private final SlippyMapDownloadDialog slippyDialog;
 
-    private final MultiFeatureDownloader downloader = new MultiFeatureDownloader();
+    private final BgtMultiFeatureDownloader downloader = new BgtMultiFeatureDownloader();
 
     public BgtDownloadAction() {
         super("Download", ImageProvider.get("download"));

@@ -63,6 +63,7 @@
       <mkdir dir="${plugin.debug.build.dir}"/>
       <artifact:dependencies filesetId="dependency.fileset">
         <dependency groupId="nl.pdok.ogc" artifactId="bgt_gson" version="1.0.0-SNAPSHOT"/>
+        <dependency groupId="josm-plugins" artifactId="nl_ogc" version="0.1.0"/>
         <dependency groupId="io.github.kazitanvirazad" artifactId="csv4pojo" version="2.1.0"/>
         <dependency groupId="com.squareup.okhttp3" artifactId="okhttp" version="4.12.0"/>
         <dependency groupId="com.squareup.okio" artifactId="okio" version="3.6.0"/>

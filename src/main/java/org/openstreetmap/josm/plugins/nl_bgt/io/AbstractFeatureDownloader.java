@@ -5,10 +5,13 @@ import java.util.Set;
 import java.util.concurrent.FutureTask;
 
 import org.openstreetmap.josm.data.osm.DataSet;
-import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
 import org.openstreetmap.josm.plugins.nl_bgt.features.FeatureTagBuilder;
 import org.openstreetmap.josm.plugins.nl_bgt.features.FeatureTagBuilderCache;
-import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
+import org.openstreetmap.josm.shared.nl_ogc.data.OgcLayerManager;
+import org.openstreetmap.josm.shared.nl_ogc.data.OgcPrimitiveFactory;
+import org.openstreetmap.josm.shared.nl_ogc.io.FeatureDownloader;
+import org.openstreetmap.josm.shared.nl_ogc.io.TaskStatus;
+import org.openstreetmap.josm.shared.nl_ogc.jts.Boundary;
 
 public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<T> {
 
@@ -51,7 +54,7 @@ public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<
         return layerManager.getDataSet();
     }
     
-    protected PrimitiveFactory getPrimitiveFactory() {
+    protected OgcPrimitiveFactory getPrimitiveFactory() {
         return layerManager.getPrimitiveFactory();
     }
     

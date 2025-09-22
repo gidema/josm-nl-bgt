@@ -3,6 +3,8 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
 import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
+import org.openstreetmap.josm.shared.nl_ogc.data.OgcLayerManager;
+import org.openstreetmap.josm.shared.nl_ogc.io.TaskStatus;
 
 import nl.pdok.ogc.bgt.ApiException;
 import nl.pdok.ogc.bgt.model.FeatureGeoJSONWaterdeel;
@@ -36,7 +38,7 @@ public class WaterdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSO
     @Override
     public void addToOsm(FeatureGeoJSONWaterdeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = getPrimitiveFactory().createPrimitive(geometry, false);
+        var osmPrimitive = getPrimitiveFactory().createAreaPrimitive(geometry, false);
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var type = feature.getProperties().getType();
