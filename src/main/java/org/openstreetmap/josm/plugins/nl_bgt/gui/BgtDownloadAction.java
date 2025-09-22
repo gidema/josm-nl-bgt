@@ -4,7 +4,6 @@ import static org.openstreetmap.josm.tools.I18n.tr;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.swing.AbstractAction;
 
@@ -22,37 +21,25 @@ public class BgtDownloadAction extends AbstractAction {
      */
     private static final long serialVersionUID = 1L;
 
-    private LocalDateTime startDate;
     private boolean cancelled = false;
     private Boundary boundary;
     private final SlippyMapDownloadDialog slippyDialog;
-    private final FixedBoundsDownloadDialog fixedDialog;
 
-    private MultiFeatureDownloader downloader;
+    private final MultiFeatureDownloader downloader = new MultiFeatureDownloader();
 
     public BgtDownloadAction() {
         super("Download", ImageProvider.get("download"));
         slippyDialog = new SlippyMapDownloadDialog();
-        fixedDialog = new FixedBoundsDownloadDialog();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean update = true;
-//        try {
-//            new TagScraper().run();
-//        } catch (IOException e1) {
-//            // TODO Auto-generated catch block
-//            e1.printStackTrace();
-//        }
-        this.downloader = new MultiFeatureDownloader();
         run();
     }
 
     public void run() {
         cancelled = false;
         boundary = getBoundary();
-        startDate = LocalDateTime.now();
         if (!cancelled) {
             DownloadTask task = new DownloadTask();
             MainApplication.worker.submit(task);

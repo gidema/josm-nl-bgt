@@ -70,6 +70,7 @@ public class MultiFeatureDownloader implements LayerChangeListener {
     @Override
     public void layerRemoving(LayerRemoveEvent e) {
         layerManager.reset();
+        downloaders.forEach(FeatureDownloader::clearCache);
     }
 
     @Override
