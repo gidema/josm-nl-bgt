@@ -37,7 +37,7 @@ public class SlippyMapDownloadDialog extends AbstractDownloadDialog {
     protected Bounds currentBounds = null;
 
     public SlippyMapDownloadDialog() {
-        super(tr("Download ODS"));
+        super(tr("Download BGT"));
     }
 
 

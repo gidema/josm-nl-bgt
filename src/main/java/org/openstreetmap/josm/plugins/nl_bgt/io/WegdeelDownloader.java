@@ -2,7 +2,6 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
-import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
 import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
@@ -10,8 +9,8 @@ import nl.pdok.ogc.bgt.model.FeatureGeoJSONWegdeel;
 
 public class WegdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONWegdeel> {
 
-    public WegdeelDownloader() {
-        super(FeatureGeoJSONWegdeel.class);
+    public WegdeelDownloader(OgcLayerManager layerManager) {
+        super(FeatureGeoJSONWegdeel.class, layerManager);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class WegdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONW
     @Override
     public void addToOsm(FeatureGeoJSONWegdeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
+        var osmPrimitive = getPrimitiveFactory().createPrimitive(geometry, false);
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var functie = feature.getProperties().getFunctie();

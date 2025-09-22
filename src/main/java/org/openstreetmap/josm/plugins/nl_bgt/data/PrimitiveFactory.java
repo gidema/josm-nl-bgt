@@ -20,22 +20,28 @@ import nl.pdok.ogc.bgt.model.MultipolygonGeoJSON;
 import nl.pdok.ogc.bgt.model.PolygonGeoJSON;
 
 public class PrimitiveFactory {
-    private static Map<LatLon, Node> nodeCache = new HashMap<>();
+    private final DataSet dataSet;
+    private final Map<LatLon, Node> nodeCache = new HashMap<>();
     
-    public static OsmPrimitive createPrimitive(Object geometry, DataSet dataSet, boolean keepHoles) {
+    public PrimitiveFactory(DataSet dataSet) {
+        super();
+        this.dataSet = dataSet;
+    }
+
+    public OsmPrimitive createPrimitive(Object geometry, boolean keepHoles) {
         OsmPrimitive mainPrimitive = null;
         if (geometry instanceof PolygonGeoJSON) {
             var coordinates = ((PolygonGeoJSON)geometry).getCoordinates();
             if (coordinates.size() > 1) {
-                mainPrimitive = createArea(coordinates, dataSet, keepHoles);
+                mainPrimitive = createArea(coordinates, keepHoles);
             }
             else {
-                mainPrimitive = createArea(coordinates.get(0), dataSet);
+                mainPrimitive = createArea(coordinates.get(0));
             }
         }
         else if (geometry instanceof MultipolygonGeoJSON) {
             var coordinates = ((MultipolygonGeoJSON)geometry).getCoordinates();
-            mainPrimitive = createMultiPolygonArea(coordinates, dataSet, keepHoles);
+            mainPrimitive = createMultiPolygonArea(coordinates, keepHoles);
         }
         if (mainPrimitive != null) {
             if (mainPrimitive.getType().equals(OsmPrimitiveType.RELATION)) {
@@ -45,47 +51,47 @@ public class PrimitiveFactory {
         return mainPrimitive;
     }
 
-    private static OsmPrimitive createMultiPolygonArea(List<List<List<List<BigDecimal>>>> coordinates, DataSet dataSet, boolean keepHoles) {
+    private OsmPrimitive createMultiPolygonArea(List<List<List<List<BigDecimal>>>> coordinates, boolean keepHoles) {
         var relation = new Relation();
         relation.put("type", "multipolygon");
         coordinates.forEach(polygonCoords -> {
-            addPolygon(relation, polygonCoords, dataSet, keepHoles);
+            addPolygon(relation, polygonCoords, keepHoles);
         });
         return relation;
     }
 
-    private static OsmPrimitive createArea(List<List<List<BigDecimal>>> coordinates, DataSet dataSet, boolean keepHoles) {
+    private OsmPrimitive createArea(List<List<List<BigDecimal>>> coordinates, boolean keepHoles) {
         if (keepHoles) {
             var relation = new Relation();
             relation.put("type", "multipolygon");
-            addPolygon(relation, coordinates, dataSet, keepHoles);
+            addPolygon(relation, coordinates, keepHoles);
             return relation;
         }
-        return createArea(coordinates.get(0), dataSet);
+        return createArea(coordinates.get(0));
     }
 
-    private static void addPolygon(Relation relation, List<List<List<BigDecimal>>> coordinates, DataSet dataSet, boolean keepHoles) {
+    private void addPolygon(Relation relation, List<List<List<BigDecimal>>> coordinates, boolean keepHoles) {
         var it = coordinates.iterator();
-        var outerRing = new RelationMember("outer", createLinearRing(it.next(), dataSet));
+        var outerRing = new RelationMember("outer", createLinearRing(it.next()));
         relation.addMember(outerRing);
         if (keepHoles)
         while (it.hasNext()) {
-            var innerRing = new RelationMember("inner", createLinearRing(it.next(), dataSet));
+            var innerRing = new RelationMember("inner", createLinearRing(it.next()));
             relation.addMember(innerRing);
         }
     }
 
-    private static OsmPrimitive createArea(List<List<BigDecimal>> coordinates, DataSet dataSet) {
-        return createLinearRing(coordinates, dataSet);
+    private OsmPrimitive createArea(List<List<BigDecimal>> coordinates) {
+        return createLinearRing(coordinates);
     }
     
-    private static Way createLinearRing(List<List<BigDecimal>> coordinates, DataSet dataSet) {
+    private Way createLinearRing(List<List<BigDecimal>> coordinates) {
         List<Node> nodes = new ArrayList<>(coordinates.size());
         Node previousNode= null;
         for (List<BigDecimal> coord : coordinates) {
-            var node = createNode(coord, dataSet);
+            var node = createNode(coord);
             if (!node.equals(previousNode)) {
-                nodes.add(createNode(coord, dataSet));
+                nodes.add(createNode(coord));
             }
             previousNode = node;
         }
@@ -95,8 +101,7 @@ public class PrimitiveFactory {
         return way;
     }
     
-    private static Node createNode(List<BigDecimal> coords, DataSet dataSet) {
-        BigDecimal b;
+    private Node createNode(List<BigDecimal> coords) {
         var latLon = new LatLon(coords.get(1).setScale(7, RoundingMode.HALF_UP).doubleValue(),
                 coords.get(0).setScale(7, RoundingMode.HALF_UP).doubleValue());
         var node = nodeCache.get(latLon);

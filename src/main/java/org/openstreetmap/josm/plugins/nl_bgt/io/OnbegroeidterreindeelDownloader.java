@@ -2,7 +2,6 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
-import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
 import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
@@ -10,8 +9,8 @@ import nl.pdok.ogc.bgt.model.FeatureGeoJSONOnbegroeidterreindeel;
 
 public class OnbegroeidterreindeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONOnbegroeidterreindeel> {
     
-    public OnbegroeidterreindeelDownloader() {
-        super(FeatureGeoJSONOnbegroeidterreindeel.class);
+    public OnbegroeidterreindeelDownloader(OgcLayerManager layerManager) {
+        super(FeatureGeoJSONOnbegroeidterreindeel.class, layerManager);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class OnbegroeidterreindeelDownloader extends AbstractFeatureDownloader<F
     @Override
     public void addToOsm(FeatureGeoJSONOnbegroeidterreindeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
+        var osmPrimitive = getPrimitiveFactory().createPrimitive(geometry, false);
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var fysiekVoorkomen = feature.getProperties().getFysiekVoorkomen();

@@ -5,21 +5,21 @@ import java.util.Set;
 import java.util.concurrent.FutureTask;
 
 import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
 import org.openstreetmap.josm.plugins.nl_bgt.features.FeatureTagBuilder;
 import org.openstreetmap.josm.plugins.nl_bgt.features.FeatureTagBuilderCache;
 import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
 
-import nl.pdok.ogc.bgt.model.FeatureGeoJSONWaterdeel;
-
 public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<T> {
 
-    private DataSet dataSet; 
+    private OgcLayerManager layerManager;
     private Boundary boundary;
     private final FeatureTagBuilder tagBuilder; 
     private final Set<String> featureIdCache = new HashSet<>();
 
-    public AbstractFeatureDownloader(Class<T> clazz) {
+    public AbstractFeatureDownloader(Class<T> clazz, OgcLayerManager layerManager) {
         super();
+        this.layerManager = layerManager;
         tagBuilder = FeatureTagBuilderCache.forClass(clazz); 
     }
 
@@ -38,17 +38,25 @@ public abstract class AbstractFeatureDownloader<T> implements FeatureDownloader<
 
     @SuppressWarnings("hiding")
     @Override
-    public FutureTask<TaskStatus> getFetchTask(Boundary boundary, DataSet dataSet) {
-        this.dataSet = dataSet;
+    public FutureTask<TaskStatus> getFetchTask(Boundary boundary) {
         this.boundary = boundary;
         return new FutureTask<>(this);
     }
     
-    public DataSet getDataSet() {
-        return dataSet;
-    }
-
     protected Boundary getBoundary() {
         return boundary;
+    }
+
+    protected DataSet getDataSet() {
+        return layerManager.getDataSet();
+    }
+    
+    protected PrimitiveFactory getPrimitiveFactory() {
+        return layerManager.getPrimitiveFactory();
+    }
+    
+    @Override
+    public void clearCache() {
+        this.featureIdCache.clear();
     }
 }

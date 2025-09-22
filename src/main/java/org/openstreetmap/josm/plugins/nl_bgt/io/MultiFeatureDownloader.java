@@ -7,38 +7,36 @@ import java.util.List;
 import java.util.concurrent.FutureTask;
 
 import org.openstreetmap.josm.data.Bounds;
-import org.openstreetmap.josm.data.osm.DataSet;
-import org.openstreetmap.josm.data.osm.DownloadPolicy;
-import org.openstreetmap.josm.data.osm.UploadPolicy;
 import org.openstreetmap.josm.data.osm.visitor.BoundingXYVisitor;
 import org.openstreetmap.josm.gui.MainApplication;
-import org.openstreetmap.josm.gui.layer.MainLayerManager;
-import org.openstreetmap.josm.gui.layer.OsmDataLayer;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerAddEvent;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerChangeListener;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerOrderChangeEvent;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerRemoveEvent;
 import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
 import org.openstreetmap.josm.tools.Logging;
 
 // TODO decide upon and document Class lifecycle
-public class MultiFeatureDownloader {
-    private final static MainLayerManager layerManager = MainApplication.getLayerManager();
-    private static String layerName = "NL_BGT";
+public class MultiFeatureDownloader implements LayerChangeListener {
+    private OgcLayerManager layerManager = new OgcLayerManager();
     List<FeatureDownloader<?>> downloaders = new ArrayList<>();
     private boolean cancelled = false;
     
     public MultiFeatureDownloader() {
-        downloaders.add(new WaterdeelDownloader());
-        downloaders.add(new WegdeelDownloader());
-        downloaders.add(new BegroeidTerreindeelDownloader());
-        downloaders.add(new OnbegroeidterreindeelDownloader());
-        downloaders.add(new OndersteunendwegdeelDownloader());
-        downloaders.add(new OndersteunendwaterdeelDownloader());
+        MainApplication.getLayerManager().addLayerChangeListener(this);
+        downloaders.add(new WaterdeelDownloader(layerManager));
+        downloaders.add(new WegdeelDownloader(layerManager));
+        downloaders.add(new BegroeidTerreindeelDownloader(layerManager));
+        downloaders.add(new OnbegroeidterreindeelDownloader(layerManager));
+        downloaders.add(new OndersteunendwegdeelDownloader(layerManager));
+        downloaders.add(new OndersteunendwaterdeelDownloader(layerManager));
     }
 
     public void run(Boundary boundary) {
         final List<FutureTask<TaskStatus>> fetchTasks = new LinkedList<>();
         Logging.info("Downloading {0} sets of BGT data with boundary {1}", downloaders.size(), boundary);
-        OsmDataLayer dataLayer = getOsmDataLayer();
         downloaders.forEach(featureDownloader -> {
-            fetchTasks.add(featureDownloader.getFetchTask(boundary, dataLayer.getDataSet()));
+            fetchTasks.add(featureDownloader.getFetchTask(boundary));
         });
         var taskStatus = TaskRunner.runTasks(fetchTasks);
         if (taskStatus.hasExceptions()) {
@@ -47,25 +45,8 @@ public class MultiFeatureDownloader {
         if (taskStatus.hasErrors()) {
             Logging.error(taskStatus.getErrors().toString());
         }
-        layerManager.setActiveLayer(dataLayer);
+        MainApplication.getLayerManager().setActiveLayer(layerManager.getDataLayer());
         computeBboxAndCenterScale(boundary.getBounds());
-    }
-    
-    private static OsmDataLayer getOsmDataLayer() {
-        OsmDataLayer osmLayer = layerManager.getLayers().stream()
-            .filter(layer -> layer.getName().equals(layerName)) 
-            .filter(layer -> layer instanceof OsmDataLayer)
-            .map(OsmDataLayer.class::cast)
-            .findFirst()
-            .orElseGet(() -> {
-                var dataLayer = new OsmDataLayer(new DataSet(), layerName, null);
-                layerManager.addLayer(dataLayer);
-                return dataLayer;
-            });
-        osmLayer.setUploadDiscouraged(true);
-        osmLayer.getDataSet().setUploadPolicy(UploadPolicy.BLOCKED);
-        osmLayer.getDataSet().setDownloadPolicy(DownloadPolicy.BLOCKED);
-        return osmLayer;
     }
     
     public void cancel() {
@@ -81,4 +62,20 @@ public class MultiFeatureDownloader {
         }
     }
 
+    @Override
+    public void layerAdded(LayerAddEvent e) {
+        // Ignore this event
+    }
+
+    @Override
+    public void layerRemoving(LayerRemoveEvent e) {
+        layerManager.reset();
+    }
+
+    @Override
+    public void layerOrderChanged(LayerOrderChangeEvent e) {
+        // Ignore this event
+    }
+
+    
 }

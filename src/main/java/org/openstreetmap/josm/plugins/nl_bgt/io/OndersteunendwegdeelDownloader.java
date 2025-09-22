@@ -2,7 +2,6 @@ package org.openstreetmap.josm.plugins.nl_bgt.io;
 
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.plugins.nl_bgt.BGTClient;
-import org.openstreetmap.josm.plugins.nl_bgt.data.PrimitiveFactory;
 import org.openstreetmap.josm.plugins.nl_bgt.features.BgtFeatureTags;
 
 import nl.pdok.ogc.bgt.ApiException;
@@ -10,8 +9,8 @@ import nl.pdok.ogc.bgt.model.FeatureGeoJSONOndersteunendwegdeel;
 
 public class OndersteunendwegdeelDownloader extends AbstractFeatureDownloader<FeatureGeoJSONOndersteunendwegdeel> {
     
-    public OndersteunendwegdeelDownloader() {
-        super(FeatureGeoJSONOndersteunendwegdeel.class);
+    public OndersteunendwegdeelDownloader(OgcLayerManager layerManager) {
+        super(FeatureGeoJSONOndersteunendwegdeel.class, layerManager);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class OndersteunendwegdeelDownloader extends AbstractFeatureDownloader<Fe
     @Override
     public void addToOsm(FeatureGeoJSONOndersteunendwegdeel feature) {
         var geometry = feature.getGeometry().getActualInstance();
-        var osmPrimitive = PrimitiveFactory.createPrimitive(geometry, getDataSet(), false);
+        var osmPrimitive = getPrimitiveFactory().createPrimitive(geometry, false);
         osmPrimitive.put("source", "NL:BGT");
         osmPrimitive.put("ref:NL:BGT", feature.getProperties().getLokaalId());
         var functie = feature.getProperties().getFunctie();

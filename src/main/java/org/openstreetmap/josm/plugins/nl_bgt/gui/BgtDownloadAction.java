@@ -11,7 +11,6 @@ import javax.swing.AbstractAction;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.PleaseWaitRunnable;
 import org.openstreetmap.josm.io.OsmTransferException;
-import org.openstreetmap.josm.plugins.nl_bgt.features.TagScraper;
 import org.openstreetmap.josm.plugins.nl_bgt.io.MultiFeatureDownloader;
 import org.openstreetmap.josm.plugins.nl_bgt.jts.Boundary;
 import org.openstreetmap.josm.tools.ImageProvider;
