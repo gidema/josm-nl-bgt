@@ -10,12 +10,13 @@ import org.openstreetmap.josm.shared.nl_ogc.io.MultiFeatureDownloader;
 public class BgtMultiFeatureDownloader extends MultiFeatureDownloader {
     private static OgcLayerManager layerManager = new OgcLayerManager("NL_BGT", new BgtGeometryHandler());
     private static List<FeatureDownloader<?>> downloaders = List.of(
-       new WaterdeelDownloader(layerManager),
-       new WegdeelDownloader(layerManager),
-       new BegroeidTerreindeelDownloader(layerManager),
-       new OnbegroeidterreindeelDownloader(layerManager),
-       new OndersteunendwegdeelDownloader(layerManager),
-       new OndersteunendwaterdeelDownloader(layerManager));
+        new WaterdeelDownloader(layerManager),
+        new WegdeelDownloader(layerManager),
+        new BegroeidTerreindeelDownloader(layerManager),
+        new OnbegroeidterreindeelDownloader(layerManager),
+        new OndersteunendwegdeelDownloader(layerManager),
+        new OndersteunendwaterdeelDownloader(layerManager),
+        new ScheidingVlakDownloader(layerManager));
     private boolean cancelled = false;
     
     public BgtMultiFeatureDownloader() {

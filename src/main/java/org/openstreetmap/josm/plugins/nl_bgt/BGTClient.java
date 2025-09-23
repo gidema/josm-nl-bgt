@@ -12,6 +12,7 @@ import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONBegroeidterreindeel;
 import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONOnbegroeidterreindeel;
 import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONOndersteunendwaterdeel;
 import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONOndersteunendwegdeel;
+import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONScheidingVlak;
 import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONWaterdeel;
 import nl.pdok.ogc.bgt.model.FeatureCollectionGeoJSONWegdeel;
 
@@ -39,6 +40,11 @@ public class BGTClient {
     public FeatureCollectionGeoJSONWegdeel getWegdeel(List<BigDecimal> bbox) throws ApiException {
         var api = new FeaturesApi(apiClient);
         return api.wegdeelGetFeatures("json", 1000, crs, bbox, crs, null, null, null, null);
+    }
+    
+    public FeatureCollectionGeoJSONScheidingVlak getScheidingVlak(List<BigDecimal> bbox) throws ApiException {
+        var api = new FeaturesApi(apiClient);
+        return api.scheidingVlakGetFeatures("json", 1000, crs, bbox, crs, null, null, null, null);
     }
     
     public FeatureCollectionGeoJSONBegroeidterreindeel getBegroeidterreindeel(List<BigDecimal> bbox) throws ApiException {

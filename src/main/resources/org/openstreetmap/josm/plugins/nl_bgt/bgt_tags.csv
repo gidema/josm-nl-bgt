@@ -243,3 +243,5 @@ ondersteunendwegdeel,,,berm ,groenvoorziening ,bosplantsoen ,landcover,trees
 ondersteunendwegdeel,,,berm ,onverhard ,zand ,landcover,sand 
 ondersteunendwegdeel,,,berm ,groenvoorziening ,planten ,landcover,flowerbed 
 ondersteunendwegdeel,,,berm ,groenvoorziening ,struikrozen ,landcover,flowerbed 
+scheidingVlak,kademuur,,,,,barrier,retaining_wall
+scheidingVlak,muur,,,,,barrier,wall
